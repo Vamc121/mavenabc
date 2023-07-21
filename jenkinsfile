@@ -16,29 +16,7 @@ pipeline
             {
                 sh 'mvn package' 
             }
-        }
-        stage('ContinuousDeployment')
-        {
-            steps
-            {
-                deploy adapters: [tomcat9(credentialsId: '71d2726c-2471-42c3-b782-9b2c857e6a58', path: '', url: 'http://10.66.1.187:8080')], contextPath: 'testapp', war: '**/*.war' 
-            }
-        }
-        stage('ContinuousTesting')
-        {
-            steps
-            {
-                git 'https://github.com/Vamc121/FunctionalTesting.git'
-                sh 'java -jar /var/lib/jenkins/workspace/dp/testing.jar'
-                
-            }
-        }
-         stage('ContinuousDelivery')
-        {
-            steps
-            {
-                deploy adapters: [tomcat9(credentialsId: '71d2726c-2471-42c3-b782-9b2c857e6a58', path: '', url: 'http://10.66.2.137:8080')], contextPath: 'prodaapp', war: '**/*.war' 
-            }
-        }
+        } 
     }
 }
+        
